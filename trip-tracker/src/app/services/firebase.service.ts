@@ -10,6 +10,7 @@ export class FirebaseService {
   trips: Observable<any[]>;
   favoriteTrips: Observable<any[]>;
   upcomingTrips: Observable<any[]>;
+  tripDetails: Observable<any>;
   
   constructor(private db: AngularFireDatabase) {
 
@@ -21,19 +22,30 @@ export class FirebaseService {
    }
 
    getFavoriteTrips() {
-    this.favoriteTrips = this.db.list('/trips').valueChanges().pipe(map(trips => {
-      const topRatedTrips = trips.filter((item:any) => item.rate > 4);
-      return topRatedTrips;
-    }))
+    this.favoriteTrips = this.db.list('/trips').snapshotChanges().pipe(map(trips => {
+      return trips.map(a => {
+        const data = a.payload.val();
+        const key = a.payload.key;
+        return { key, data }
+      });
+    }));
     return this.favoriteTrips;
    }
 
    getUpcomingTrips() {
-    this.upcomingTrips = this.db.list('/trips').valueChanges().pipe(map(trips => {
-      const ut = trips.filter((item:any) => item.datereturn == null);
-      return ut;
+    this.upcomingTrips = this.db.list('/trips').snapshotChanges().pipe(map(trips => {
+      return trips.map(a => {
+        const data = a.payload.val();
+        const key = a.payload.key;
+        return { key, data }
+      });
     }))
     return this.upcomingTrips;
+   }
+
+   getTripDetails(id) {
+    this.tripDetails = this.db.object('/trips/' + id).valueChanges();
+    return this.tripDetails;
    }
    
 }
