@@ -1,1 +1,54 @@
-<p>add-trip works!</p>
+<mat-toolbar> Add a New Trip </mat-toolbar>
+
+<div class="add-trip-form">
+    <a [routerLink]="['/trips']">Back</a>
+    <form (submit)="submitAdd()" #myForm="ngForm">
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Trip Title" [(ngModel)]="title" name="title" required>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Trip Author" [(ngModel)]="creator" name="creator" required>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Trip Price" type="number" [(ngModel)]="price" name="price" required>
+        </mat-form-field>
+
+        <table class="full-width" cellspacing="10px;">
+            <tr>
+                <td>
+                    <mat-form-field class="full-width">
+                        <input matInput [matDatepicker]="datedepart" placeholder="Date of Depart ">
+                        <mat-datepicker-toggle matSuffix [for]="datedepart"></mat-datepicker-toggle>
+                    </mat-form-field>
+                    <mat-datepicker #datedepart (selectedChanged)="updateDateDepart($event)"></mat-datepicker>
+                </td>
+                <td>
+                    <mat-form-field class="full-width">
+                        <input matInput [matDatepicker]="datereturn" placeholder="Date of Return">
+                        <mat-datepicker-toggle matSuffix [for]="datereturn"></mat-datepicker-toggle>
+                    </mat-form-field>
+                    <mat-datepicker #datereturn (selectedChanged)="updateDateReturn($event)"></mat-datepicker>
+                </td>
+            </tr>
+        </table>
+
+        <div *ngIf="isReturn">
+            <mat-form-field class="full-width">
+                <textarea matInput rows="5" placeholder="Trip Description" [(ngModel)]="description" name="description"></textarea>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Trip Rate (1-5)" min="1" max="5" step="0.1" type="number"
+                    [(ngModel)]="rate" name="rate">
+            </mat-form-field>
+        </div>
+
+        <mat-form-field class="third-width">
+            <input matInput placeholder="Image Url (enter image URL)" [(ngModel)]="imageUrl" name="imageUrl" required>
+        </mat-form-field><br>
+        <img src="{{imageUrl}}" alt="{{title}}">
+        <hr>
+        <button mat-raised-button value="submit" [disabled]="!myForm.form.valid"> Create Trip </button>
+    </form>
+</div>

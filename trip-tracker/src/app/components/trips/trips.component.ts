@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from "../../services/firebase.service";
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-trips',
@@ -7,10 +8,9 @@ import { FirebaseService } from "../../services/firebase.service";
   styleUrls: ['./trips.component.css']
 })
 export class TripsComponent implements OnInit {
-
   allTrips: any;
 
-  constructor(private firebaseService: FirebaseService) {
+  constructor(private firebaseService: FirebaseService, private route: ActivatedRoute, private router: Router) {
 
   }
 

@@ -16,9 +16,15 @@ export class FirebaseService {
 
    }
 
-   getTrips() {
-     this.trips = this.db.list('/trips').valueChanges();
-     return this.trips;
+  getTrips() {
+    this.trips = this.db.list('/trips').snapshotChanges().pipe(map(trips => {
+      return trips.map(a => {
+        const data = a.payload.val();
+        const key = a.payload.key;
+        return { key, data }
+      });
+    }));
+    return this.trips;
    }
 
    getFavoriteTrips() {
@@ -46,6 +52,11 @@ export class FirebaseService {
    getTripDetails(id) {
     this.tripDetails = this.db.object('/trips/' + id).valueChanges();
     return this.tripDetails;
+   }
+
+   addTrip(tripDetails) {
+    let filteredTrips = JSON.parse(JSON.stringify(tripDetails));
+    return this.trips.push(filteredTrips);
    }
    
 }

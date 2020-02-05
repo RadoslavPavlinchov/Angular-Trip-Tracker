@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-trip',
@@ -6,10 +8,49 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-trip.component.css']
 })
 export class AddTripComponent implements OnInit {
+  city;
+  creator;
+  datedepart;
+  datereturn;
+  description;
+  imageUrl;
+  price;
+  rate;
+  title;
+  type;
 
-  constructor() { }
+  isReturn: boolean = false;
+
+  constructor(private firebaseService: FirebaseService, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  updateDateDepart(dateDepart) {
+    this.datedepart = dateDepart;
+  }
+
+  updateDateReturn(dateReturn) {
+    this.datereturn = dateReturn;
+    this.isReturn = true;
+  }
+
+  submitAdd() {
+    let trip = {
+      city: this.city,
+      creator: this.creator,
+      datedepart: this.datedepart,
+      datereturn: this.datereturn,
+      description: this.description,
+      imageUrl: this.imageUrl,
+      price: this.price,
+      rate: this.rate,
+      title: this.title,
+      type: this.type
+    }
+
+    this.firebaseService.addTrip(trip);
+    this.router.navigate(['trips']);
   }
 
 }

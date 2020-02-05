@@ -1,3 +1,20 @@
-<ul>
-<li *ngFor="let trip of allTrips">Trip title: {{trip.title}}</li>
-</ul>
+<div *ngIf="!allTrips" class="spinner"> 
+    <mat-spinner></mat-spinner>
+  </div>
+  <div *ngIf="allTrips">
+    <mat-toolbar> All trips </mat-toolbar>
+    <mat-grid-list cols="3" >
+      <mat-grid-tile *ngFor="let trip of allTrips">
+          <mat-card class="tripTile">
+              <mat-card-header>
+                <mat-card-title><h4>{{trip.data.title}}</h4></mat-card-title>
+              </mat-card-header>
+              <img mat-card-image src="{{trip.data.imageUrl}}" alt="{{trip.data.title}}">
+              <mat-card-actions>
+                <button mat-button mat-raised-button class="detailsButton" [routerLink]="['/trip/'+trip.key]"> <i class="material-icons">visibility</i> Trip Details</button>
+                <button mat-button mat-raised-button class="editButton" [routerLink]="['/edit-trip/'+trip.key]"> <i class="material-icons">mode_edit</i> Edit Trip</button>
+              </mat-card-actions>
+            </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>

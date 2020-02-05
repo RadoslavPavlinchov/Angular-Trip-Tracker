@@ -1,1 +1,36 @@
-<p>trip works!</p>
+<mat-toolbar> Trip Details </mat-toolbar>
+
+<div *ngIf="!title" class="spinner"> 
+     <mat-spinner></mat-spinner>
+</div>
+
+<div class="details-trip" *ngIf="title">
+        <mat-card>
+                <mat-card-title>
+                        <span class="mat-headline">{{title}}</span>
+                </mat-card-title>
+                <mat-card-content>
+                    <div class="left">
+                            <img src="{{imageUrl}}" />
+                    </div>
+                    <div class="right">
+                        <mat-list>
+                                <mat-list-item> <i class="material-icons">person_pin</i> Creator:&nbsp;&nbsp;<b> {{creator}}</b> </mat-list-item>
+                                <mat-list-item> <i class="material-icons">date_range</i> Date Depart:&nbsp;&nbsp;<b> {{datedepart}}</b> </mat-list-item>
+                                <mat-list-item *ngIf="datereturn"> <i class="material-icons">date_range</i> Date of Return:&nbsp;&nbsp;<b> {{datereturn}}</b> </mat-list-item>
+                                <mat-list-item> <i class="material-icons">attach_money</i> Price:&nbsp;&nbsp;<b> {{price}}</b></mat-list-item>
+                                <mat-list-item *ngIf="rate"> <i class="material-icons">star</i> Rate:&nbsp;&nbsp;<b>{{rate}}</b></mat-list-item>
+                        </mat-list>
+                    </div>
+                    <hr>
+                    <mat-toolbar>Description</mat-toolbar>
+                    {{description}}
+                    <p *ngIf="!description"> No description for this trip! </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button [routerLink]="['/trips']" mat-raised-button> <i class="material-icons">view_module</i> All trips </button>
+                    <button [routerLink]="['/edit-trip/'+id]"  mat-raised-button class="editButton"> <i class="material-icons">mode_edit</i> Edit </button> 
+                    <button [routerLink]="['/delete-trip/'+id]" mat-raised-button color="warn"> <i class="material-icons">delete_sweep</i> Delete </button>
+                </mat-card-actions>
+            </mat-card>
+</div>
