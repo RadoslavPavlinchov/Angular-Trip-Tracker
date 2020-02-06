@@ -1,1 +1,44 @@
-<p>edit-trip works!</p>
+<mat-card>Edit Trip</mat-card>
+
+<div class="edit-trip-form">
+    <a [routerLink]="['/trips']">Back</a>
+    <form #values="ngForm" (submit)="submitEdit()">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Trip Title" [(ngModel)]="title" name="title">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Trip Author" [(ngModel)]="creator" name="author">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Trip Price" type="number" [(ngModel)]="price" name="price">
+      </mat-form-field>
+      
+      <mat-form-field class="full-width" >
+          <input matInput [(ngModel)]="datedepart" [matDatepicker]="da" placeholder="Date Added " [ngModelOptions]="{standalone: true}">
+          <mat-datepicker-toggle matSuffix [for]="da"></mat-datepicker-toggle>
+        </mat-form-field>
+      <mat-datepicker #da (selectedChanged)="updateDateDepart($event)"></mat-datepicker>
+      <mat-form-field class="full-width" >
+          <input matInput [(ngModel)]="datereturn" [matDatepicker]="dr" placeholder="Date Read " [ngModelOptions]="{standalone: true}">
+          <mat-datepicker-toggle matSuffix [for]="dr"></mat-datepicker-toggle>
+        </mat-form-field>
+      <mat-datepicker #dr (selectedChanged)="updateDateReturn($event)"></mat-datepicker>
+
+      
+      <mat-form-field class="full-width">
+          <textarea matInput rows="5" placeholder="trip Description" [(ngModel)]="description" name="description" ></textarea>
+        </mat-form-field>
+    
+      <mat-form-field class="full-width">
+        <input matInput placeholder="trip Rate (1-5)" min="1" max="5" step="0.1" type="number" [(ngModel)]="rate" name="rate">
+      </mat-form-field>    
+     
+
+      <mat-form-field class="third-width">
+          <input matInput placeholder="Image Url (enter image URL)" [(ngModel)]="imageUrl" name="imageUrl">
+      </mat-form-field>
+      <img src="{{imageUrl}}" alt="{{title}}">
+      <hr>
+      <button mat-raised-button value="submit"> Save Changes </button>
+    </form>
+</div>

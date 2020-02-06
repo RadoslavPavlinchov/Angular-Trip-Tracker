@@ -6,10 +6,14 @@
         </div>
 
         <ul class="nav navbar-nav">
-            <li><a [routerLink]="['/']">Home</a></li>
-            <li><a [routerLink]="['/trips']">Trips</a></li>
-            <li><a [routerLink]="['/add-trip']">Add Trip</a></li>
+            <li *ngIf="authenticated"><a [routerLink]="['/']">Home</a></li>
+            <li *ngIf="authenticated"><a [routerLink]="['/trips']">Trips</a></li>
+            <li *ngIf="authenticated"><a [routerLink]="['/add-trip']">Add Trip</a></li>
         </ul>
 
+        <ul class="nav navbar-nav navbar-right">
+            <li *ngIf="!authenticated"><a (click)="login()">Login</a></li>
+            <li *ngIf="authenticated"><a (click)="logout()">Logout</a></li>
+        </ul>
     </div>
 </nav>

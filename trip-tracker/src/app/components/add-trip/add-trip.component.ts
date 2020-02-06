@@ -27,11 +27,11 @@ export class AddTripComponent implements OnInit {
   }
 
   updateDateDepart(dateDepart) {
-    this.datedepart = dateDepart;
+    this.datedepart = this.firebaseService.formatDate(dateDepart);
   }
 
   updateDateReturn(dateReturn) {
-    this.datereturn = dateReturn;
+    this.datereturn = this.firebaseService.formatDate(dateReturn);
     this.isReturn = true;
   }
 

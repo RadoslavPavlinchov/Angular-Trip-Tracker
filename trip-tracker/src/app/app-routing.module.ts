@@ -9,7 +9,7 @@ import { DeleteTripComponent } from './components/delete-trip/delete-trip.compon
 
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', pathMatch: 'full', component: HomeComponent},
   {path: 'trips', component: TripsComponent},
   {path: 'trip/:id', component: TripComponent},
   {path: 'add-trip', component: AddTripComponent},

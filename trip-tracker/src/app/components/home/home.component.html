@@ -1,38 +1,46 @@
-<mat-toolbar>My Top Rated Trips</mat-toolbar>
-<mat-grid-list cols='3'>
-    <mat-grid-tile *ngFor="let trip of favoriteTrips">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>
-                    <h4>{{trip.data.title}}</h4>
-                </mat-card-title>
-            </mat-card-header>
-            <img mat-card-image src="{{trip.data.imageUrl}}" alt="{{trip.data.title}}">
-            <mat-card-actions>
-                <button mat-button mat-raised-button class="detailsButton" [routerLink]="['/trip/'+trip.key]"><i class="material-icons">visibility</i>Trip Details</button>
-                <button mat-button mat-raised-button class="editButton" [routerLink]="['/edit-trip/'+trip.key]"><i class="material-icons">mode_edit</i>Edit Trip</button>
-            </mat-card-actions>
-        </mat-card>
-    </mat-grid-tile>
-</mat-grid-list>
+<div *ngIf="authenticated">
+    <mat-toolbar>My Top Rated Trips</mat-toolbar>
+    <mat-grid-list cols='3'>
+        <mat-grid-tile *ngFor="let trip of favoriteTrips">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        <h4>{{trip.data.title}}</h4>
+                    </mat-card-title>
+                </mat-card-header>
+                <img mat-card-image src="{{trip.data.imageUrl}}" alt="{{trip.data.title}}">
+                <mat-card-actions>
+                    <button mat-button mat-raised-button class="detailsButton" [routerLink]="['/trip/'+trip.key]"><i
+                            class="material-icons">visibility</i>Trip Details</button>
+                    <button mat-button mat-raised-button class="editButton" [routerLink]="['/edit-trip/'+trip.key]"><i
+                            class="material-icons">mode_edit</i>Edit Trip</button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
 
-<mat-toolbar>Upcoming Trips</mat-toolbar>
-<mat-grid-list cols='3'>
-    <mat-grid-tile *ngFor="let trip of upcomingTrips">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>
-                    <h4>{{trip.data.title}}</h4>
-                </mat-card-title>
-            </mat-card-header>
-            <img mat-card-image src="{{trip.data.imageUrl}}" alt="{{trip.data.title}}">
-            <mat-card-content>
-                <p></p>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-button mat-raised-button [routerLink]="['/trip/'+trip.key]"> Trip Details</button>
-                <button mat-button mat-raised-button [routerLink]="['/edit-trip/'+trip.key]"> Edit Trip</button>
-            </mat-card-actions>
-        </mat-card>
-    </mat-grid-tile>
-</mat-grid-list>
+    <mat-toolbar>Upcoming Trips</mat-toolbar>
+    <mat-grid-list cols='3'>
+        <mat-grid-tile *ngFor="let trip of upcomingTrips">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        <h4>{{trip.data.title}}</h4>
+                    </mat-card-title>
+                </mat-card-header>
+                <img mat-card-image src="{{trip.data.imageUrl}}" alt="{{trip.data.title}}">
+                <mat-card-content>
+                    <p></p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button mat-raised-button [routerLink]="['/trip/'+trip.key]"> Trip Details</button>
+                    <button mat-button mat-raised-button [routerLink]="['/edit-trip/'+trip.key]"> Edit Trip</button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+
+<div *ngIf="!authenticated">
+    <h1>You are not authenticated!</h1>
+</div>
